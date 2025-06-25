@@ -31,7 +31,7 @@ def cambiar_funcion(nombre):
 # Acá verifica si el nombre se encuentra en la variable compradores para así cambiar la función si es así. Si existe podrá cambiar la función sino, arrojará Error. El comprador no existe
     if nombre in compradores:
         print(f"Actualmente estás registrado en: {compradores[nombre]}.")
-        cambio = input("¿Deseas cambiar de función? (sí/no): ").lower() # Aca convertimos lo ingresado a lower para que el programa no malinterprete
+        cambio = input("¿Deseas cambiar de función? (si/no): ").lower() # Aca convertimos lo ingresado a lower para que el programa no malinterprete
 
         if cambio == "sí":
             if compradores[nombre] == "Cats Día Viernes" and stock_func2 > 0:  # Aca se verifica que hayan entradas para la funcion 2. El programa tomará caminos dependiendo.
@@ -61,7 +61,7 @@ def mostrar_totales():
 # Bucle principal
 def menu():
     while True:
-        print("/n--- Cartelera teatro CafeConLeche y sus distintos musicales.---")
+    print(\n--- Cartelera teatro CafeConLeche y sus distintos musicales.---")
         print("1. Comprar entrada")
         print("2. Cambio de función")
         print("3. Mostrar totales")
