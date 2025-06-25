@@ -1,29 +1,76 @@
 
-
-# Acá acordamos el stock de entradas para la funcion de "CATS" para el día Viernes y Sábado respectivamente 
+# Stocks iniciales
 stock_func1 = 150
 stock_func2 = 180
-compradores = {} # Acá creamos una lista para alamcenar los compradores en una sola variable
+compradores = {}
 
-# Acá creamos el bloque de código para la opcion 1
-def comprar_entrada(nombre, funcion): # Acá definimos una función con el nombre comprar_entrada y sus parámetros.
-    global stock_func1, stock_func2 # Global para modificar una variable exterior(global)
-
+# Comprar entrada
+def comprar_entrada(nombre, funcion):
+    global stock_func1, stock_func2
     if nombre in compradores:
-        return "Error. El nombre ya está registrado." # Verifica si el nombre ya está registrado
-
- # Este bloque permite comprar entradas a la funcion del día viernes, descontando la cantidad al stock inicial. Si queda stock mostrará compra exitosa, sino mostrará no hay entradas.
-    if funcion == "1" and stock_func1 > 0:   
-        compradores[nombre] = "Cats Día Viernes"
-        stock_func1 -= 1       
-        return "Compra registrada exitosamente para Cats Día Viernes." 
+        return "Error: Nombre ya registrado."
+    
+    if funcion == "1" and stock_func1 > 0:
+        compradores[nombre] = "Viernes"
+        stock_func1 -= 1
+        return "Compra exitosa para el viernes."
     elif funcion == "2" and stock_func2 > 0:
-        compradores[nombre] = "Cats Día Sábado"
+        compradores[nombre] = "Sábado"
         stock_func2 -= 1
-        return "Compra registrada exitosamente para Cats Día Sábado."
+        return "Compra exitosa para el sábado."
     else:
-        return "Error. No hay entradas disponibles para esta función."
+        return "No hay entradas disponibles."
 
+# Cambiar función
+def cambiar_funcion(nombre):
+    global stock_func1, stock_func2
+    if nombre not in compradores:
+        return "Error: Comprador no existe."
+    
+    actual = compradores[nombre]
+    if actual == "Viernes" and stock_func2 > 0:
+        compradores[nombre] = "Sábado"
+        stock_func1 += 1
+        stock_func2 -= 1
+        return "Cambio hecho al sábado."
+    elif actual == "Sábado" and stock_func1 > 0:
+        compradores[nombre] = "Viernes"
+        stock_func2 += 1
+        stock_func1 -= 1
+        return "Cambio hecho al viernes."
+    else:
+        return "No hay entradas en la otra función."
 
+# Mostrar totales
+def mostrar_totales():
+    print(f"Entradas disponibles: {stock_func1 + stock_func2}")
+    print(f"Entradas vendidas: {(150 - stock_func1) + (180 - stock_func2)}")
+
+# Menú principal
+def menu():
+    while True:
+        print("\n--- Teatro CATS ---")
+        print("1. Comprar entrada")
+        print("2. Cambiar función")
+        print("3. Ver totales")
+        print("4. Salir")
+        opcion = input("Opción: ")
+
+        if opcion == "1":
+            nombre = input("Nombre: ")
+            funcion = input("Función (1=Viernes, 2=Sábado): ")
+            print(comprar_entrada(nombre, funcion))
+        elif opcion == "2":
+            nombre = input("Nombre: ")
+            print(cambiar_funcion(nombre))
+        elif opcion == "3":
+            mostrar_totales()
+        elif opcion == "4":
+            print("Fin del programa.")
+            break
+        else:
+            print("Opción inválida.")
+
+menu()
 
 
